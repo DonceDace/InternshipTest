@@ -1,0 +1,436 @@
+/* 连通性测试卡片样式 */
+.connectivity-test-card {
+  margin-bottom: 16px;
+  border-radius: 8px;
+
+  :global(.ant-card-head) {
+    display: none; // 隐藏默认的卡片头部
+  }
+
+  :global(.ant-card-body) {
+    padding: 0 16px 16px 16px;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding: 1px 0px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0f0f0;
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: #262626;
+      margin: 0;
+    }
+
+    .refresh-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: none;
+      color: rgb(70, 157, 178);
+      font-size: 14px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: all 0.3s;
+
+      &:hover {
+        color: rgb(56, 126, 142);
+      }
+
+      .refresh-icon {
+        font-size: 14px;
+        color: rgb(70, 157, 178);
+      }
+    }
+  }
+
+  &.loading {
+    .card-header {
+      border-bottom: none;
+    }
+
+    :global(.ant-card-body) {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 200px;
+      padding: 40px 16px;
+    }
+  }
+}
+
+.loading-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  .loading-spinner {
+    margin-bottom: 24px;
+    position: relative;
+    width: 80px;
+    height: 80px;
+
+    .loading-orbit {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      animation: spin 1.5s linear infinite;
+      
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 80px;
+        height: 80px;
+        border: 3px solid transparent;
+        border-radius: 50%;
+      }
+      
+      &::before {
+        border-top: 3px solid rgb(70, 157, 178);
+        border-right: 3px solid rgb(70, 157, 178);
+        transform: rotate(0deg);
+      }
+      
+      &::after {
+        border-bottom: 3px solid rgba(70, 157, 178, 0.6);
+        border-left: 3px solid rgba(70, 157, 178, 0.6);
+        transform: rotate(0deg);
+      }
+    }
+
+    .loading-image {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      
+      img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+      }
+    }
+  }
+
+  .loading-text {
+    color: #8c8c8c;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
+
+/* 测试项网格布局 */
+.test-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  margin-bottom: 1px;
+}
+
+.test-grid-single {
+  margin-top: 1px;
+
+  .test-item {
+    border-bottom: none;
+    border-right: none;
+  }
+}
+
+/* 测试项样式 */
+.test-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 8px 0px;
+  padding-top: 1px;
+  background: #fff;
+  transition: background 0.3s;
+  position: relative;
+
+  .item-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 4px;
+
+    .item-name {
+      font-size: 13px;
+      color: #262626;
+      font-weight: 400;
+    }
+
+    .info-icon {
+      color: #bfbfbf;
+      cursor: pointer;
+      font-size: 14px;
+      
+      &:hover {
+        color: #1890ff;
+      }
+    }
+
+    .info-icon-disabled {
+      color: #d9d9d9;
+      font-size: 14px;
+      cursor: default;
+    }
+  }
+
+  .item-main {
+    width: 100%;
+
+    .item-value {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+
+      .time-value {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 1;
+      }
+
+      .status-badge {
+        padding: 2px 6px;
+        border-radius: 2px;
+        font-size: 11px;
+        font-weight: 400;
+
+        &.success {
+          background-color: rgb(70, 157, 178);
+          color: #fff;
+        }
+
+        &.slow {
+          background-color: rgb(80, 148, 243);
+          color: #fff;
+        }
+
+        &.failed {
+          background-color: rgb(225, 61, 57);
+          color: #fff;
+        }
+      }
+    }
+
+    .status-info {
+      display: flex;
+      gap: 10px;
+
+      .status-text,
+      .period-text {
+        font-size: 11px;
+        color: #999;
+        font-weight: 400;
+      }
+
+      .status-text-red {
+        font-size: 11px;
+        color: rgba(239, 141, 128);
+        font-weight: 400;
+      }
+    }
+  }
+
+  &:hover {
+    background: #fafafa;
+  }
+}
+
+/* 自定义Tooltip样式 */
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.custom-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 8px;
+  z-index: 1000;
+  
+  .tooltip-content {
+    background-color: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    line-height: 1.4;
+    white-space: nowrap;
+    max-width: 250px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    writing-mode: horizontal-tb;
+    text-orientation: mixed;
+  }
+  
+  .tooltip-arrow {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid rgba(0, 0, 0, 0.85);
+  }
+}
+
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .test-grid {
+    grid-template-columns: 1fr 1fr; // 保持2列网格布局
+    gap: 2px; // 稍微增加间距便于触摸
+  }
+  
+  .connectivity-test-card :global(.ant-card-head) {
+    padding: 12px 16px;
+  }
+  
+  .test-item {
+    padding: 16px 12px;
+    
+    .info-icon,
+    .info-icon-disabled {
+      font-size: 14px; // 只调整问号图标字体大小
+    }
+  }
+  
+  // 移动端tooltip调整
+  .custom-tooltip {
+    .tooltip-content {
+      max-width: 200px;
+      white-space: normal;
+      word-break: break-all;
+    }
+  }
+  
+  // 右侧列的tooltip向左偏移
+  .test-item:nth-child(even) {
+    .custom-tooltip {
+      left: auto;
+      right: 0;
+      transform: translateX(0);
+      
+      .tooltip-arrow {
+        left: auto;
+        right: 20px;
+        transform: translateX(0);
+      }
+    }
+  }
+}
+
+/* 更小屏幕的响应式设计 */
+@media (max-width: 480px) {
+  .test-grid {
+    grid-template-columns: 1fr 1fr; // 小屏幕仍保持2列
+    gap: 1px;
+  }
+  
+  .test-item {
+    padding: 12px 8px;
+    
+    .info-icon,
+    .info-icon-disabled {
+      font-size: 12px; // 小屏幕进一步缩小问号图标
+    }
+  }
+  
+  // 更小屏幕的tooltip调整
+  .custom-tooltip {
+    .tooltip-content {
+      max-width: 160px;
+      font-size: 11px;
+      padding: 6px 10px;
+    }
+  }
+  
+  // 右侧列的tooltip向左偏移
+  .test-item:nth-child(even) {
+    .custom-tooltip {
+      left: auto;
+      right: 0;
+      transform: translateX(0);
+      
+      .tooltip-arrow {
+        left: auto;
+        right: 15px;
+        transform: translateX(0);
+      }
+    }
+  }
+}
+
+/* 极小屏幕适配（只有非常小的屏幕才变单列）*/
+@media (max-width: 360px) {
+  .test-grid {
+    grid-template-columns: 1fr; // 极小屏幕才变单列
+    gap: 1px;
+  }
+  
+  .test-item {
+    padding: 10px 6px;
+    
+    .info-icon,
+    .info-icon-disabled {
+      font-size: 9px; // 极小屏幕最小问号图标
+    }
+  }
+  
+  // 极小屏幕的tooltip调整
+  .custom-tooltip {
+    .tooltip-content {
+      max-width: 140px;
+      font-size: 10px;
+      padding: 5px 8px;
+    }
+  }
+  
+  // 单列布局，tooltip居中
+  .test-item:nth-child(even) {
+    .custom-tooltip {
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%);
+      
+      .tooltip-arrow {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

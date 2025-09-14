@@ -1,0 +1,91 @@
+{
+  "private": true,
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "node scripts/check-node-version.js cross-env SERVER_ENV=development umi dev",
+    "build": "node scripts/check-node-version.js cross-env SERVER_ENV=production umi build",
+    "build:analyze": "node scripts/check-node-version.js cross-env SERVER_ENV=production analyze=1 umi build",
+    "lint": "eslint src/**/*.{js,jsx} --fix --ignore-path .gitignore",
+    "lint:style": "stylelint src/**/*.{css,less} --fix --custom-syntax postcss-less",
+    "test": "umi-test",
+    "test:coverage": "umi-test --coverage"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "eslint --fix"
+    ],
+    "*.{css,less}": [
+      "stylelint --fix --custom-syntax postcss-less"
+    ]
+  },
+  "stylelint": {
+    "extends": "stylelint-config-standard",
+    "rules": {
+      "selector-pseudo-class-no-unknown": [
+        true,
+        {
+          "ignorePseudoClasses": [
+            "global"
+          ]
+        }
+      ],
+      "unit-case": null,
+      "no-descending-specificity": null,
+      "color-function-notation": null
+    }
+  },
+  "resolutions": {
+    "**/cheerio": "1.0.0-rc.12"
+  },
+  "dependencies": {
+    "amfe-flexible": "^2.2.1",
+    "antd-mobile": "^2.3.4",
+    "antd-mobile-v5": "npm:antd-mobile@5",
+    "axios": "^0.24.0",
+    "classnames": "^2.2.6",
+    "dva": "^2.4.1",
+    "lodash-es": "^4.17.15",
+    "moment": "^2.29.1",
+    "react": "18.x",
+    "react-dom": "18.x",
+    "umi": "^3.5.20"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.15.0",
+    "@testing-library/react": "^12.1.2",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@umijs/preset-react": "1.x",
+    "@umijs/test": "^3.5.20",
+    "axios-mock-adapter": "^1.20.0",
+    "babel-eslint": "^10.1.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "cross-env": "^7.0.3",
+    "enzyme": "^3.10.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-umi": "^1.6.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-flowtype": "^2.50.3",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.27.0",
+    "eslint-plugin-react-hooks": "1.5.0",
+    "jest-axe": "^5.0.1",
+    "jest-fetch-mock": "^3.0.3",
+    "lint-staged": "^10.0.7",
+    "postcss": "^8.4.38",
+    "postcss-less": "^5.0.0",
+    "postcss-px2rem-exclude": "^0.0.6",
+    "prettier": "^2.5.1",
+    "react-test-renderer": "^16.7.0",
+    "stylelint": "^14.1.0",
+    "stylelint-config-standard": "^24.0.0",
+    "typescript": "^4.1.2",
+    "yorkie": "^2.0.0"
+  }
+}
