@@ -1,0 +1,234 @@
+.networkCard {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+  border: 1px solid #f0f0f0;
+  margin-bottom: 12px;
+
+  :global(.ant-card-head) {
+    display: none; 
+  }
+
+  :global(.ant-card-body) {
+    padding: 0 16px 16px 16px;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding: 1px 0px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0f0f0;
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: #262626;
+      margin: 0;
+    }
+  }
+}
+
+.networkLoading {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.loadingSpinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #1890ff;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+.loadingText {
+  font-size: 13px;
+  color: #8c8c8c;
+}
+
+.networkContent {
+  // 网络信息内容区域
+  min-height: 1px;
+}
+
+//网络信息网格布局 
+.networkGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  margin-bottom: 1px;
+}
+
+//网络信息项样式
+.networkItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 8px 0px;
+  padding-top: 1px;
+  background: #fff;
+  transition: background 0.3s;
+  position: relative;
+
+  .itemHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 4px;
+
+    .itemLabel {
+      font-size: 13px;
+      color: #8c8c8c;
+      font-weight: 400;
+    }
+  }
+
+  .itemMain {
+    width: 100%;
+
+    .itemValue {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      justify-content: flex-start; 
+
+      .valueText {
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 1;
+        color: #262626;
+      }
+    }
+  }
+
+  &:hover {
+    background: #fafafa;
+  }
+}
+
+.signalBadge {
+  padding: 2px 6px;
+  border-radius: 2px;
+  font-size: 11px;
+  font-weight: 400;
+  
+  &.excellent {
+    background-color: rgb(70, 157, 178);
+    color: #fff;
+  }
+  
+  &.good {
+    background-color: rgb(70, 157, 178);
+    color: #fff;
+  }
+  
+  &.normal {
+    background-color: rgb(80, 148, 243);
+    color: #fff;
+  }
+  
+  &.weak {
+    background-color: rgb(225, 61, 57);
+    color: #fff;
+  }
+
+}
+
+.suggestionCard {
+  margin-top: 12px;
+  background: rgba(255, 193, 7, 0.1);
+  border-radius: 4px;
+  padding: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.suggestionIcon {
+  color: #fa8c16;
+  font-size: 12px;
+  margin-right: 6px;
+  flex-shrink: 0;
+  margin-top: 1px; 
+}
+
+.suggestionContent {
+  flex: 1;
+}
+
+.suggestionText {
+  font-size: 12px;
+  color: #fa8c16;
+  line-height: 1.4;
+  margin: 0;
+  display: flex;
+  align-items: flex-start; 
+  
+  &:not(:last-child) {
+    margin-bottom: 4px;
+  }
+  
+  
+  &:not(:first-child) {
+    margin-left: 18px; 
+  }
+}
+
+.networkError {
+  text-align: center;
+  color: #ff4d4f;
+  font-size: 13px;
+  padding: 20px 0;
+}
+
+.goodValue {
+  color: #52c41a;
+}
+
+.successValue {
+  color: #52c41a;
+}
+
+.failedValue {
+  color: #ff4d4f;
+}
+
+.warningValue {
+  color: #faad14;
+}
+
+.normalValue {
+  color: #1890ff;
+}
+
+.weakValue {
+  color: #faad14;
+}
+
+// 加载动画
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// 响应式设计
+@media (max-width: 375px) {
+  .networkCard :global(.ant-card-body) {
+    padding: 12px;
+  }
+
+  .infoLabel {
+    flex: 0 0 80px;
+    font-size: 12px;
+  }
+
+  .infoValue {
+    font-size: 12px;
+  }
+}

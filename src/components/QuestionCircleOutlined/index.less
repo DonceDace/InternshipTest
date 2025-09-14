@@ -1,0 +1,144 @@
+//自定义问号图标组件样式
+.tooltip-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  
+  .info-icon {
+    color: #bfbfbf;
+    cursor: pointer;
+    font-size: 14px;
+    
+    &:hover {
+      color: #1890ff;
+    }
+  }
+}
+
+.info-icon-disabled {
+  color: #d9d9d9;
+  font-size: 14px;
+  cursor: default;
+}
+
+.custom-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  
+  .tooltip-content {
+    background-color: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    line-height: 1.4;
+    white-space: nowrap;
+    min-width: 200px; 
+    max-width: 250px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    text-align: left;
+  }
+  
+  .tooltip-arrow {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid rgba(0, 0, 0, 0.85);
+  }
+}
+
+//响应式设计 - 平板
+@media (max-width: 768px) {
+  .tooltip-container .info-icon,
+  .info-icon-disabled {
+    font-size: 14px;
+  }
+  
+  .custom-tooltip {
+    // 保持居中定位
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    
+    .tooltip-content {
+      min-width: 220px;
+      max-width: calc(100vw - 40px);
+      white-space: normal;
+      word-break: keep-all;
+      word-wrap: break-word;
+      font-size: 11px;
+      padding: 8px 12px;
+      line-height: 1.5;
+    }
+    
+    .tooltip-arrow {
+      // 确保箭头始终居中
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid rgba(0, 0, 0, 0.85);
+    }
+  }
+}
+
+// 响应式设计 - 手机
+@media (max-width: 480px) {
+  .tooltip-container .info-icon,
+  .info-icon-disabled {
+    font-size: 12px;
+  }
+  
+  .custom-tooltip {
+    .tooltip-content {
+      min-width: 200px;
+      max-width: calc(100vw - 30px);
+      font-size: 11px;
+      padding: 6px 10px;
+    }
+    
+    .tooltip-arrow {
+      // 手机端箭头保持居中
+      border-left-width: 4px;
+      border-right-width: 4px;
+      border-top-width: 4px;
+    }
+  }
+}
+
+// 响应式设计 - 小屏幕
+@media (max-width: 360px) {
+  .tooltip-container .info-icon,
+  .info-icon-disabled {
+    font-size: 10px;
+  }
+  
+  .custom-tooltip {
+    .tooltip-content {
+      min-width: 180px;
+      max-width: calc(100vw - 20px);
+      font-size: 11px;
+      padding: 5px 8px;
+    }
+    
+    .tooltip-arrow {
+      // 极小屏幕箭头
+      border-left-width: 4px;
+      border-right-width: 4px;
+      border-top-width: 4px;
+    }
+  }
+}
