@@ -1,0 +1,460 @@
+/* ---FlexBox---
+  @flex: flex, flex-inline
+  -------------------------- */
+
+/* ---Flexbox Direction---
+    @type: row, column
+    Direction: normal, reverse
+    -------------------------- */
+
+/* ---Flexbox Wrap---
+    @wrap: wrap, nowrap, wrap-reverse
+    -------------------------- */
+
+/* ---Flexbox Justify Content---
+    @justify-content: start, end, center, space-between, space-around
+
+    *FIXME* - Creates duplicate CSS
+    -------------------------- */
+
+/* ---Flexbox Align Items---
+    @align-items: center, baseline, stretch, start, end
+    -------------------------- */
+
+/* ---Flexbox Align Content---
+    @align-items: start, end, center, space-between, space-around
+
+    *FIXME* - Creates duplicate CSS
+    -------------------------- */
+
+/* flex快速布局的class
+ * flex的方向：flex-row、flex-col
+ * flex换行：flex-wrap、flex-nowrap
+ * flex-x-y布局： flex-start-start、flex-between-start、flex-center-center、
+ flex-around-center....(增加repeat class： flex-center、flex-start、flex-end)
+ * flex-grow 缩写class: flex-1、flex-0
+ */
+.flex {
+  flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  display: box;
+  display: flex;
+  display: flex;
+}
+
+.flex-row {
+  -webkit-box-direction: normal;
+  flex-direction: row;
+  flex-direction: row;
+  -webkit-box-orient: horizontal;
+  display: box;
+  display: flex;
+  display: flex;
+}
+
+.flex-col {
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  flex-direction: column;
+  -webkit-box-orient: vertical;
+  display: box;
+  display: flex;
+  display: flex;
+}
+
+.flex-reverse-row {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+  flex-direction: row-reverse;
+  flex-direction: row-reverse;
+  display: box;
+  display: flex;
+  display: flex;
+}
+
+.flex-reverse-col {
+  -webkit-box-direction: reverse;
+  flex-direction: column-reverse;
+  flex-direction: column-reverse;
+  -webkit-box-orient: vertical;
+  display: box;
+  display: flex;
+  display: flex;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+  flex-wrap: wrap;
+  display: box;
+  display: flex;
+  display: flex;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  display: box;
+  display: flex;
+  display: flex;
+}
+
+.flex-wrap-reverse {
+  flex-wrap: wrap-reverse;
+  flex-wrap: wrap-reverse;
+  display: box;
+  display: flex;
+  display: flex;
+}
+
+.flex-1 {
+  display: box;
+  display: flex;
+  display: flex;
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-shrink: 1;
+}
+
+.flex-0 {
+  display: box;
+  display: flex;
+  display: flex;
+  flex-shrink: 0;
+  flex-shrink: 0;
+  -webkit-box-flex: 0;
+  flex-grow: 0;
+  flex-grow: 0;
+}
+
+.flex-start-start {
+  display: box;
+  display: flex;
+  display: flex;
+  -webkit-box-pack: start;
+  justify-content: flex-start;
+  justify-content: flex-start;
+  -webkit-box-align: start;
+  align-items: flex-start;
+  align-items: flex-start;
+}
+
+.flex-end-start {
+  display: box;
+  display: flex;
+  display: flex;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+  justify-content: flex-end;
+  -webkit-box-align: start;
+  align-items: flex-start;
+  align-items: flex-start;
+}
+
+.flex-between-start {
+  display: box;
+  display: flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  justify-content: space-between;
+  -webkit-box-align: start;
+  align-items: flex-start;
+  align-items: flex-start;
+}
+
+.flex-around-start {
+  display: box;
+  display: flex;
+  display: flex;
+  justify-content: space-around;
+  justify-content: space-around;
+  -webkit-box-align: start;
+  align-items: flex-start;
+  align-items: flex-start;
+}
+
+.flex-center-start {
+  display: box;
+  display: flex;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  justify-content: center;
+  -webkit-box-align: start;
+  align-items: flex-start;
+  align-items: flex-start;
+}
+
+.flex-start-end {
+  display: box;
+  display: flex;
+  display: flex;
+  -webkit-box-pack: start;
+  justify-content: flex-start;
+  justify-content: flex-start;
+  -webkit-box-align: end;
+  align-items: flex-end;
+  align-items: flex-end;
+}
+
+.flex-end-end {
+  display: box;
+  display: flex;
+  display: flex;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+  justify-content: flex-end;
+  -webkit-box-align: end;
+  align-items: flex-end;
+  align-items: flex-end;
+}
+
+.flex-between-end {
+  display: box;
+  display: flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  justify-content: space-between;
+  -webkit-box-align: end;
+  align-items: flex-end;
+  align-items: flex-end;
+}
+
+.flex-around-end {
+  display: box;
+  display: flex;
+  display: flex;
+  justify-content: space-around;
+  justify-content: space-around;
+  -webkit-box-align: end;
+  align-items: flex-end;
+  align-items: flex-end;
+}
+
+.flex-center-end {
+  display: box;
+  display: flex;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  justify-content: center;
+  -webkit-box-align: end;
+  align-items: flex-end;
+  align-items: flex-end;
+}
+
+.flex-start-center {
+  display: box;
+  display: flex;
+  display: flex;
+  -webkit-box-pack: start;
+  justify-content: flex-start;
+  justify-content: flex-start;
+  -webkit-box-align: center;
+  align-items: center;
+  align-items: center;
+}
+
+.flex-end-center {
+  display: box;
+  display: flex;
+  display: flex;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+  justify-content: flex-end;
+  -webkit-box-align: center;
+  align-items: center;
+  align-items: center;
+}
+
+.flex-between-center {
+  display: box;
+  display: flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  align-items: center;
+  align-items: center;
+}
+
+.flex-around-center {
+  display: box;
+  display: flex;
+  display: flex;
+  justify-content: space-around;
+  justify-content: space-around;
+  -webkit-box-align: center;
+  align-items: center;
+  align-items: center;
+}
+
+.flex-center-center {
+  display: box;
+  display: flex;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  align-items: center;
+}
+
+.flex-start-stretch {
+  display: box;
+  display: flex;
+  display: flex;
+  -webkit-box-pack: start;
+  justify-content: flex-start;
+  justify-content: flex-start;
+  -webkit-box-align: stretch;
+  align-items: stretch;
+  align-items: stretch;
+}
+
+.flex-end-stretch {
+  display: box;
+  display: flex;
+  display: flex;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+  justify-content: flex-end;
+  -webkit-box-align: stretch;
+  align-items: stretch;
+  align-items: stretch;
+}
+
+.flex-between-stretch {
+  display: box;
+  display: flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  justify-content: space-between;
+  -webkit-box-align: stretch;
+  align-items: stretch;
+  align-items: stretch;
+}
+
+.flex-around-stretch {
+  display: box;
+  display: flex;
+  display: flex;
+  justify-content: space-around;
+  justify-content: space-around;
+  -webkit-box-align: stretch;
+  align-items: stretch;
+  align-items: stretch;
+}
+
+.flex-center-stretch {
+  display: box;
+  display: flex;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  justify-content: center;
+  -webkit-box-align: stretch;
+  align-items: stretch;
+  align-items: stretch;
+}
+
+.flex-start-baseline {
+  display: box;
+  display: flex;
+  display: flex;
+  -webkit-box-pack: start;
+  justify-content: flex-start;
+  justify-content: flex-start;
+  -webkit-box-align: baseline;
+  align-items: baseline;
+  align-items: baseline;
+}
+
+.flex-end-baseline {
+  display: box;
+  display: flex;
+  display: flex;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+  justify-content: flex-end;
+  -webkit-box-align: baseline;
+  align-items: baseline;
+  align-items: baseline;
+}
+
+.flex-between-baseline {
+  display: box;
+  display: flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  justify-content: space-between;
+  -webkit-box-align: baseline;
+  align-items: baseline;
+  align-items: baseline;
+}
+
+.flex-around-baseline {
+  display: box;
+  display: flex;
+  display: flex;
+  justify-content: space-around;
+  justify-content: space-around;
+  -webkit-box-align: baseline;
+  align-items: baseline;
+  align-items: baseline;
+}
+
+.flex-center-baseline {
+  display: box;
+  display: flex;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  justify-content: center;
+  -webkit-box-align: baseline;
+  align-items: baseline;
+  align-items: baseline;
+}
+
+.flex-start {
+  display: box;
+  display: flex;
+  display: flex;
+  -webkit-box-pack: start;
+  justify-content: flex-start;
+  justify-content: flex-start;
+  -webkit-box-align: start;
+  align-items: flex-start;
+  align-items: flex-start;
+}
+
+.flex-end {
+  display: box;
+  display: flex;
+  display: flex;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+  justify-content: flex-end;
+  -webkit-box-align: end;
+  align-items: flex-end;
+  align-items: flex-end;
+}
+
+.flex-center {
+  display: box;
+  display: flex;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  align-items: center;
+}
