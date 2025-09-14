@@ -1,0 +1,202 @@
+// components/DeviceInfo/index.less
+
+.deviceCard {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+  border: 1px solid #f0f0f0;
+  margin-bottom: 12px;
+
+  :global(.ant-card-head) {
+    display: none; // 隐藏默认的卡片头部
+  }
+
+  :global(.ant-card-body) {
+    padding: 0 16px 16px 16px;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding: 1px 0px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0f0f0;
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: #262626;
+      margin: 0;
+    }
+  }
+}
+
+.deviceContent {
+  // 设备信息内容区域
+  min-height: 1px;
+}
+
+/* 设备信息网格布局 */
+.deviceGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  margin-bottom: 1px;
+}
+
+/* 设备信息项样式 */
+.deviceItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 8px 0px;
+  padding-top: 1px;
+  background: #fff;
+  transition: background 0.3s;
+  position: relative;
+
+  .itemHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 4px;
+
+    .itemLabel {
+      font-size: 13px;
+      color: #8c8c8c;
+      font-weight: 400;
+    }
+  }
+
+  .itemMain {
+    width: 100%;
+
+    .itemValue {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      justify-content: flex-start; // 改为左对齐
+
+      .valueText {
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 1;
+        color: #262626;
+      }
+    }
+  }
+
+  &:hover {
+    background: #fafafa;
+  }
+}
+
+.performanceBadge {
+  padding: 2px 6px;
+  border-radius: 2px;
+  font-size: 10px;
+  font-weight: 400;
+  
+  &.performanceHigh {
+    background-color: #52c41a;
+    color: #fff;
+  }
+  
+  &.performanceMedium {
+    background-color: #1890ff;
+    color: #fff;
+  }
+  
+  &.performanceLow {
+    background-color: #faad14;
+    color: #fff;
+  }
+  
+  &.performancePoor {
+    background-color: #f5222d;
+    color: #fff;
+  }
+}
+
+.suggestionCard {
+  margin-top: 12px;
+  background: rgba(255, 193, 7, 0.1);
+  border-radius: 4px;
+  padding: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.suggestionIcon {
+  color: #fa8c16;
+  font-size: 16px;
+  font-weight: bold;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.suggestionContent {
+  flex: 1;
+}
+
+.suggestionText {
+  font-size: 12px;
+  color: #fa8c16;
+  line-height: 1.4;
+  margin: 0;
+  
+  &:not(:last-child) {
+    margin-bottom: 4px;
+  }
+}
+
+// 设备性能样式 (已移至 performanceBadge)
+// .performanceHigh, .performanceMedium, .performanceLow 现在使用 performanceBadge
+
+// 内存样式
+.memoryValue {
+  font-weight: 500;
+  color: #1890ff;
+}
+
+// CPU样式
+.cpuValue {
+  font-weight: 500;
+  color: #262626;
+}
+
+// 通用状态样式
+.successValue {
+  color: #52c41a;
+}
+
+.failedValue {
+  color: #ff4d4f;
+}
+
+.warningValue {
+  color: #faad14;
+}
+
+.normalValue {
+  color: #1890ff;
+}
+
+// 响应式设计
+@media (max-width: 375px) {
+  .deviceCard :global(.ant-card-body) {
+    padding: 12px;
+  }
+
+  .infoLabel {
+    flex: 0 0 80px;
+    font-size: 12px;
+  }
+
+  .infoValue {
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: Loading match snapshot 1`] = `"<div><div style=\\"text-align: center;\\"><img style=\\"width: 2rem; height: 2rem;\\" src=\\"https://file-storage.distinctclinic.com/distinct-wxmp/static/img/loading2.gif\\" alt=\\"loading\\"></div></div>"`;
