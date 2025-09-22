@@ -3,7 +3,7 @@
 -------------------------------------------------
 部署说明
 
-https://github.com/DonceDace/InternshipTest.git
+git clone https://github.com/DonceDace/InternshipTest.git
 
 cd InternshipTest
 
@@ -18,6 +18,7 @@ yarn start
 页面截图
 
  ![Image text](https://github.com/DonceDace/InternshipTest/blob/main/img/pjs.png)
+
 
 
 
