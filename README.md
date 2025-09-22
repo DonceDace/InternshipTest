@@ -17,4 +17,7 @@ yarn start
 
 页面截图
 
+ ![Image text]https://github.com/DonceDace/InternshipTest/blob/main/img/pjs.png
+
+
 
