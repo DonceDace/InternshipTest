@@ -4,13 +4,17 @@
 部署说明
 
 https://github.com/DonceDace/InternshipTest.git
+
 cd InternshipTest
 
 yarn install
+
 yarn build
+
 yarn start
   
 -------------------------------------------------
 
 页面截图
+
 
