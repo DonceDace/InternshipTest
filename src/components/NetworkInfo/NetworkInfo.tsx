@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Card } from 'antd';
+import { InfoCircleOutlined } from '@ant-design/icons';
 import styles from './index.less';
+import { NETWORK_INFO } from '../../constants';
 
 interface NetworkInfoProps {
   refreshKey?: number;
 }
 
 interface NetworkData {
-  ipAddress: string;
-  city: string;
   networkType: string;
   signalStrength: string;
   usingProxy: boolean;
@@ -26,16 +26,9 @@ const NetworkInfo: React.FC<NetworkInfoProps> = ({ refreshKey = 0 }) => {
     
     // 模拟API调用
     setTimeout(() => {
-      setNetworkInfo({
-        ipAddress: '192.168.1.100',
-        city: '彰化',
-        networkType: 'WIFI',
-        signalStrength: '-614dbm', // 修改为较差的信号强度以显示建议
-        usingProxy: false,
-        weakNetwork: false
-      });
+      setNetworkInfo(NETWORK_INFO.MOCK_DATA);
       setLoading(false);
-    }, 1000);
+    }, NETWORK_INFO.LOADING_DELAY);
   };
 
   useEffect(() => {
@@ -50,15 +43,15 @@ const NetworkInfo: React.FC<NetworkInfoProps> = ({ refreshKey = 0 }) => {
 
   const getSignalStatus = (signalStr: string) => {
     const value = getSignalStrengthValue(signalStr);
-    if (value >= -50) return { status: '优秀', class: 'excellent' };
-    if (value >= -70) return { status: '良好', class: 'good' };
-    if (value >= -85) return { status: '一般', class: 'normal' };
-    return { status: '较差', class: 'weak' };
+    if (value >= NETWORK_INFO.SIGNAL_THRESHOLDS.excellent) return { status: NETWORK_INFO.SIGNAL_STATUS_LABELS.excellent, class: 'excellent' };
+    if (value >= NETWORK_INFO.SIGNAL_THRESHOLDS.good) return { status: NETWORK_INFO.SIGNAL_STATUS_LABELS.good, class: 'good' };
+    if (value >= NETWORK_INFO.SIGNAL_THRESHOLDS.normal) return { status: NETWORK_INFO.SIGNAL_STATUS_LABELS.normal, class: 'normal' };
+    return { status: NETWORK_INFO.SIGNAL_STATUS_LABELS.weak, class: 'weak' };
   };
 
   const shouldShowSuggestion = (signalStr: string): boolean => {
     const value = getSignalStrengthValue(signalStr);
-    return value < -90; // 信号强度小于-90dBm时显示建议
+    return value < NETWORK_INFO.SIGNAL_THRESHOLDS.weak;
   };
 
   const renderNetworkItem = (label: string, value: string | boolean, type?: 'boolean' | 'signal') => {
@@ -66,7 +59,7 @@ const NetworkInfo: React.FC<NetworkInfoProps> = ({ refreshKey = 0 }) => {
     let badgeElement = null;
 
     if (type === 'boolean') {
-      displayValue = value ? '是' : '否';
+      displayValue = value ? NETWORK_INFO.BOOLEAN_LABELS.yes : NETWORK_INFO.BOOLEAN_LABELS.no;
     } else if (type === 'signal' && typeof value === 'string') {
       const signalStatus = getSignalStatus(value);
       displayValue = value;
@@ -103,7 +96,7 @@ const NetworkInfo: React.FC<NetworkInfoProps> = ({ refreshKey = 0 }) => {
     <div className={styles.infoRow}>
       <span className={styles.infoLabel}>{label}</span>
       <span className={`${styles.infoValue} ${valueClass}`}>
-        {type === 'boolean' ? (value ? '是' : '否') : value}
+        {type === 'boolean' ? (value ? NETWORK_INFO.BOOLEAN_LABELS.yes : NETWORK_INFO.BOOLEAN_LABELS.no) : value}
       </span>
     </div>
   );
@@ -111,33 +104,39 @@ const NetworkInfo: React.FC<NetworkInfoProps> = ({ refreshKey = 0 }) => {
   return (
     <Card className={styles.networkCard}>
       <div className={styles['card-header']}>
-        <h3 className={styles['card-title']}>网络情况</h3>
+        <h3 className={styles['card-title']}>{NETWORK_INFO.UI_TEXT.title}</h3>
       </div>
       {loading ? (
         <div className={styles.networkLoading}>
           <div className={styles.loadingSpinner}></div>
-          <span className={styles.loadingText}>正在获取网络信息...</span>
+          <span className={styles.loadingText}>{NETWORK_INFO.UI_TEXT.loadingText}</span>
         </div>
       ) : networkInfo ? (
         <>
           <div className={styles.networkGrid}>
-            {renderNetworkItem('网络类型', networkInfo.networkType)}
-            {renderNetworkItem('是否使用代理', networkInfo.usingProxy, 'boolean')}
-            {renderNetworkItem('信号强度', networkInfo.signalStrength, 'signal')}
-            {renderNetworkItem('是否弱网环境', networkInfo.weakNetwork, 'boolean')}
+            {renderNetworkItem(NETWORK_INFO.UI_TEXT.labels.networkType, networkInfo.networkType)}
+            {renderNetworkItem(NETWORK_INFO.UI_TEXT.labels.usingProxy, networkInfo.usingProxy, 'boolean')}
+            {renderNetworkItem(NETWORK_INFO.UI_TEXT.labels.signalStrength, networkInfo.signalStrength, 'signal')}
+            {renderNetworkItem(NETWORK_INFO.UI_TEXT.labels.weakNetwork, networkInfo.weakNetwork, 'boolean')}
           </div>
           {shouldShowSuggestion(networkInfo.signalStrength) && (
             <div className={styles.suggestionCard}>
-              <div className={styles.suggestionIcon}>ⓘ</div>
               <div className={styles.suggestionContent}>
-                <div className={styles.suggestionText}>1.信号强度较低，换个信号好的地方再试试吧</div>
-                <div className={styles.suggestionText}>2.可能使用境外代理，关闭代理后再试试吧</div>
+                <div className={styles.suggestionText}>
+                  <InfoCircleOutlined className={styles.suggestionIcon} />
+                  {NETWORK_INFO.SUGGESTION_MESSAGES[0]}
+                </div>
+                {NETWORK_INFO.SUGGESTION_MESSAGES.slice(1).map((message, index) => (
+                  <div key={index + 1} className={styles.suggestionText}>
+                    {message}
+                  </div>
+                ))}
               </div>
             </div>
           )}
         </>
       ) : (
-        <div className={styles.networkError}>获取网络信息失败</div>
+        <div className={styles.networkError}>{NETWORK_INFO.UI_TEXT.errorText}</div>
       )}
     </Card>
   );

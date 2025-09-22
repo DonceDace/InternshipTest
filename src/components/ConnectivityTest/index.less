@@ -167,7 +167,6 @@
   padding-top: 1px;
   background: #fff;
   transition: background 0.3s;
-  position: relative;
 
   .item-header {
     display: flex;
@@ -181,22 +180,6 @@
       color: #262626;
       font-weight: 400;
     }
-
-    .info-icon {
-      color: #bfbfbf;
-      cursor: pointer;
-      font-size: 14px;
-      
-      &:hover {
-        color: #1890ff;
-      }
-    }
-
-    .info-icon-disabled {
-      color: #d9d9d9;
-      font-size: 14px;
-      cursor: default;
-    }
   }
 
   .item-main {
@@ -207,6 +190,7 @@
       align-items: center;
       gap: 6px;
       margin-bottom: 6px;
+      min-height: 20px; // 添加最小高度确保对齐
 
       .time-value {
         font-weight: 400;
@@ -235,6 +219,25 @@
           color: #fff;
         }
       }
+
+      // 统一处理问号图标样式
+      .info-icon {
+        color: #bfbfbf;
+        cursor: pointer;
+        font-size: 14px;
+        flex-shrink: 0; // 防止图标缩小
+        
+        &:hover {
+          color: #1890ff;
+        }
+      }
+
+      .info-icon-disabled {
+        color: #d9d9d9;
+        font-size: 14px;
+        cursor: default;
+        flex-shrink: 0; // 防止图标缩小
+      }
     }
 
     .status-info {
@@ -261,53 +264,11 @@
   }
 }
 
-/* 自定义Tooltip样式 */
-.tooltip-container {
-  position: relative;
-  display: inline-block;
-}
-
-.custom-tooltip {
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-bottom: 8px;
-  z-index: 1000;
-  
-  .tooltip-content {
-    background-color: rgba(0, 0, 0, 0.85);
-    color: white;
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-size: 12px;
-    line-height: 1.4;
-    white-space: nowrap;
-    max-width: 250px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    writing-mode: horizontal-tb;
-    text-orientation: mixed;
-  }
-  
-  .tooltip-arrow {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 5px solid rgba(0, 0, 0, 0.85);
-  }
-}
-
-
 /* 响应式设计 */
 @media (max-width: 768px) {
   .test-grid {
-    grid-template-columns: 1fr 1fr; // 保持2列网格布局
-    gap: 2px; // 稍微增加间距便于触摸
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
   }
   
   .connectivity-test-card :global(.ant-card-head) {
@@ -316,115 +277,58 @@
   
   .test-item {
     padding: 16px 12px;
-    
-    .info-icon,
-    .info-icon-disabled {
-      font-size: 14px; // 只调整问号图标字体大小
-    }
-  }
-  
-  // 移动端tooltip调整
-  .custom-tooltip {
-    .tooltip-content {
-      max-width: 200px;
-      white-space: normal;
-      word-break: break-all;
-    }
-  }
-  
-  // 右侧列的tooltip向左偏移
-  .test-item:nth-child(even) {
-    .custom-tooltip {
-      left: auto;
-      right: 0;
-      transform: translateX(0);
-      
-      .tooltip-arrow {
-        left: auto;
-        right: 20px;
-        transform: translateX(0);
-      }
-    }
   }
 }
 
 /* 更小屏幕的响应式设计 */
 @media (max-width: 480px) {
   .test-grid {
-    grid-template-columns: 1fr 1fr; // 小屏幕仍保持2列
+    grid-template-columns: 1fr 1fr;
     gap: 1px;
   }
   
   .test-item {
     padding: 12px 8px;
     
-    .info-icon,
-    .info-icon-disabled {
-      font-size: 12px; // 小屏幕进一步缩小问号图标
-    }
-  }
-  
-  // 更小屏幕的tooltip调整
-  .custom-tooltip {
-    .tooltip-content {
-      max-width: 160px;
-      font-size: 11px;
-      padding: 6px 10px;
-    }
-  }
-  
-  // 右侧列的tooltip向左偏移
-  .test-item:nth-child(even) {
-    .custom-tooltip {
-      left: auto;
-      right: 0;
-      transform: translateX(0);
-      
-      .tooltip-arrow {
-        left: auto;
-        right: 15px;
-        transform: translateX(0);
+    .item-main {
+      .item-value {
+        gap: 4px;
+        
+        .time-value {
+          font-size: 11px;
+        }
+        
+        .status-badge {
+          font-size: 10px;
+          padding: 2px 4px;
+        }
       }
     }
   }
 }
 
-/* 极小屏幕适配（只有非常小的屏幕才变单列）*/
+/* 极小屏幕适配 */
 @media (max-width: 360px) {
   .test-grid {
-    grid-template-columns: 1fr; // 极小屏幕才变单列
+    grid-template-columns: 1fr;
     gap: 1px;
   }
   
   .test-item {
     padding: 10px 6px;
     
-    .info-icon,
-    .info-icon-disabled {
-      font-size: 9px; // 极小屏幕最小问号图标
-    }
-  }
-  
-  // 极小屏幕的tooltip调整
-  .custom-tooltip {
-    .tooltip-content {
-      max-width: 140px;
-      font-size: 10px;
-      padding: 5px 8px;
-    }
-  }
-  
-  // 单列布局，tooltip居中
-  .test-item:nth-child(even) {
-    .custom-tooltip {
-      left: 50%;
-      right: auto;
-      transform: translateX(-50%);
-      
-      .tooltip-arrow {
-        left: 50%;
-        right: auto;
-        transform: translateX(-50%);
+    .item-main {
+      .item-value {
+        gap: 4px;
+        
+        .time-value {
+          font-size: 10px;
+        }
+        
+        .status-badge {
+          font-size: 9px;
+          padding: 1px 3px;
+        }
       }
     }
   }

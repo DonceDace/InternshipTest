@@ -6,6 +6,7 @@ import ConnectivityTest, { ConnectivityResults } from '../../components/Connecti
 import NetworkInfo from '../../components/NetworkInfo';
 import DeviceInfo from '../../components/DeviceInfo';
 import Watermark from '../../components/Watermark';
+import { USER_INFO } from '../../constants';
 import styles from './index.less';
 
 interface UserInfo {
@@ -16,8 +17,8 @@ interface UserInfo {
 const Demo: React.FC = () => {
   const [connectivityResults, setConnectivityResults] = useState<ConnectivityResults | null>(null);
   const [userInfo] = useState<UserInfo>({
-    name: '李中国医生',
-    id: 'USER001'
+    name: USER_INFO.name,
+    id: USER_INFO.id
   });
   const [refreshKey, setRefreshKey] = useState(0);
   const [isTestCompleted, setIsTestCompleted] = useState(false);
