@@ -2,7 +2,15 @@
 
 -------------------------------------------------
 部署说明
-  yarn install
-  yarn build
-  yarn start
+
+https://github.com/DonceDace/InternshipTest.git
+cd InternshipTest
+
+yarn install
+yarn build
+yarn start
+  
 -------------------------------------------------
+
+页面截图
+
