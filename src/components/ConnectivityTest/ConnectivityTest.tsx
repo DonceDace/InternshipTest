@@ -1,18 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Popover, Button } from 'antd';
-import { QuestionCircleOutlined, SyncOutlined } from '@ant-design/icons';
+import { SyncOutlined } from '@ant-design/icons';
 import styles from './index.less';
 import loadingImage from '../../assets/loading/loading.png';
-import { TestResult, TestResults } from '../../types/connectivity';
+import CustomQuestionCircleOutlined from '../QuestionCircleOutlined';
+import { CONNECTIVITY_TEST, COMMON_UI } from '../../constants';
+
+interface TestResult {
+  status: 'success' | 'failed' | 'testing' | 'slow';
+  time?: number;
+  statusCode?: number;
+  period?: number;
+}
 
 interface ConnectivityTestProps {
-  onTestComplete: (results: TestResults) => void;
+  onTestComplete: (results: ConnectivityResults) => void;
   isRefresh?: boolean;
   onRefresh?: () => void;
 }
 
+export interface ConnectivityResults {
+  filePreview: TestResult;
+  fileUpload: TestResult;
+  doctorEnd: TestResult;
+  clientEnd: TestResult;
+  wechat: TestResult;
+  errors?: {
+    [key: string]: string;
+  };
+}
+
 const ConnectivityTest: React.FC<ConnectivityTestProps> = ({ onTestComplete, isRefresh = false, onRefresh }) => {
-  const [testStatus, setTestStatus] = useState<TestResults>({
+  const [testStatus, setTestStatus] = useState<ConnectivityResults>({
     filePreview: { status: 'testing' },
     fileUpload: { status: 'testing' },
     doctorEnd: { status: 'testing' },
@@ -20,24 +39,8 @@ const ConnectivityTest: React.FC<ConnectivityTestProps> = ({ onTestComplete, isR
     wechat: { status: 'testing' },
   });
   const [isCompleted, setIsCompleted] = useState(false);
-  const [showTooltip, setShowTooltip] = useState<string | null>(null);
   const onTestCompleteRef = React.useRef(onTestComplete);
   onTestCompleteRef.current = onTestComplete;
-
-  // 点击外部区域关闭tooltip
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      if (!target.closest(`.${styles['tooltip-container']}`)) {
-        setShowTooltip(null);
-      }
-    };
-
-    if (showTooltip) {
-      document.addEventListener('click', handleClickOutside);
-      return () => document.removeEventListener('click', handleClickOutside);
-    }
-  }, [showTooltip]);
 
   useEffect(() => {
     setIsCompleted(false);
@@ -51,21 +54,18 @@ const ConnectivityTest: React.FC<ConnectivityTestProps> = ({ onTestComplete, isR
 
     const startTest = () => {
       const timer = setTimeout(() => {
-        const finalResults: TestResults = {
-          filePreview: { status: 'failed', time: 10228, statusCode: 403, period: 403 },
-          fileUpload: { status: 'slow', time: 8808, statusCode: 403, period: 403 },
-          doctorEnd: { status: 'success', time: 108, statusCode: 200, period: 200 },
-          clientEnd: { status: 'success', time: 108, statusCode: 200, period: 200 },
-          wechat: { status: 'failed', time: 10218, statusCode: 403, period: 403 },
-          errors: {
-            filePreview: '文件预览服务连接失败',
-            wechat: '客户端请求格式错误或请求参数不正确'
-          },
+        const finalResults: ConnectivityResults = {
+          filePreview: CONNECTIVITY_TEST.MOCK_RESULTS.filePreview,
+          fileUpload: CONNECTIVITY_TEST.MOCK_RESULTS.fileUpload,
+          doctorEnd: CONNECTIVITY_TEST.MOCK_RESULTS.doctorEnd,
+          clientEnd: CONNECTIVITY_TEST.MOCK_RESULTS.clientEnd,
+          wechat: CONNECTIVITY_TEST.MOCK_RESULTS.wechat,
+          errors: CONNECTIVITY_TEST.ERROR_MESSAGES,
         };
         setTestStatus(finalResults);
         setIsCompleted(true);
         onTestCompleteRef.current(finalResults);
-      }, 5000); // Simulate 5-second test
+      }, CONNECTIVITY_TEST.TEST_TIMEOUT);
 
       return () => clearTimeout(timer);
     };
@@ -82,15 +82,15 @@ const ConnectivityTest: React.FC<ConnectivityTestProps> = ({ onTestComplete, isR
       switch (status) {
         case 'success':
           badgeClass = 'success';
-          text = '良好';
+          text = CONNECTIVITY_TEST.STATUS_LABELS.success;
           break;
         case 'slow':
           badgeClass = 'slow';
-          text = '缓慢';
+          text = CONNECTIVITY_TEST.STATUS_LABELS.slow;
           break;
         case 'failed':
           badgeClass = 'failed';
-          text = '超时';
+          text = CONNECTIVITY_TEST.STATUS_LABELS.failed;
           break;
         default:
           return null;
@@ -101,25 +101,17 @@ const ConnectivityTest: React.FC<ConnectivityTestProps> = ({ onTestComplete, isR
     // 只有微信项有 Tooltip 功能
     const isWechat = errorKey === 'wechat';
     const isShow = errorKey === 'doctorEnd' || errorKey === 'clientEnd';
+    
     const questionIcon = isWechat ? (
-      <div className={styles['tooltip-container']}>
-        <QuestionCircleOutlined 
-          className={styles['info-icon']} 
-          onClick={() => setShowTooltip(showTooltip === errorKey ? null : errorKey)}
-        />
-        {showTooltip === errorKey && (
-          <div className={styles['custom-tooltip']}>
-            <div className={styles['tooltip-content']}>
-              {testStatus.errors?.[errorKey]}
-            </div>
-            <div className={styles['tooltip-arrow']}></div>
-          </div>
-        )}
-      </div>
+      <CustomQuestionCircleOutlined
+        hasTooltip={true}
+        tooltipContent={testStatus.errors?.[errorKey] || ''}
+        className={styles['info-icon']}
+      />
     ) : isShow ? (
       <span> </span>
     ) : (
-      <QuestionCircleOutlined className={styles['info-icon-disabled']} />
+      <CustomQuestionCircleOutlined hasTooltip={false} />
     );
 
     return (
@@ -129,13 +121,13 @@ const ConnectivityTest: React.FC<ConnectivityTestProps> = ({ onTestComplete, isR
         </div>
         <div className={styles['item-main']}>
           <div className={styles['item-value']}>
-            {time !== undefined && <span className={styles['time-value']}>{time}ms</span>}
+            {time !== undefined && <span className={styles['time-value']}>{time}{COMMON_UI.TIME_UNIT}</span>}
             {getStatusBadge()}
             {questionIcon}
           </div>
           <div className={styles['status-info']}>
-            <span className={isWechat ? styles['status-text-red'] : styles['status-text']}>状态码:{statusCode}</span>
-            <span className={styles['period-text']}>预期:{period}</span>
+            <span className={isWechat ? styles['status-text-red'] : styles['status-text']}>{CONNECTIVITY_TEST.UI_TEXT.statusCodePrefix}{statusCode}</span>
+            <span className={styles['period-text']}>{CONNECTIVITY_TEST.UI_TEXT.expectedPrefix}{period}</span>
           </div>
         </div>
       </div>

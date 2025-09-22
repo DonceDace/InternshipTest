@@ -132,10 +132,10 @@
 
 .suggestionIcon {
   color: #fa8c16;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 12px;
+  margin-right: 6px;
   flex-shrink: 0;
-  margin-top: 2px;
+  margin-top: 1px; // 微调垂直对齐
 }
 
 .suggestionContent {
@@ -147,9 +147,16 @@
   color: #fa8c16;
   line-height: 1.4;
   margin: 0;
+  display: flex;
+  align-items: flex-start; // 顶部对齐，确保多行文字正确显示
   
   &:not(:last-child) {
     margin-bottom: 4px;
+  }
+  
+  // 第二行及以后的文字需要左对齐缩进，与第一行文字对齐
+  &:not(:first-child) {
+    margin-left: 18px; // 图标宽度(12px) + 间距(6px) = 18px
   }
 }
 
